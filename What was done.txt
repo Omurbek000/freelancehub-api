@@ -1,3 +1,5 @@
 установил зависимости requirements.txt
 setings.py(жаздым ключ бекиттим)
 models.py(жаздым)
+serializers(жаздым)
+views.py(жазып баштадым)
