@@ -86,6 +86,11 @@ class CategorySerializer(serializers.ModelSerializer):
         fields = ["id", "category_name"]
 
 
+class ProjectSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Project
+        fields = '__all__'
+
 class ProjectListSerializer(serializers.ModelSerializer):
     client = UserProfileSimpleSerializer(read_only=True)
 
