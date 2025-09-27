@@ -1,6 +1,8 @@
 from rest_framework import serializers
 from .models import *
-
+from rest_framework_simplejwt.tokens import RefreshToken
+from django.contrib.auth import authenticate
+from tokenize import TokenError
 
 class SkillSerializer(serializers.ModelSerializer):
     class Meta:

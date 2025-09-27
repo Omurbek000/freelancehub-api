@@ -105,9 +105,9 @@ class OfferViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend, SearchFilter, OrderingFilter]
     filterset_class = OfferFilter
     ordering_fields = ['freelancer', 'project','proposed_budget', 'proposed_deadline',]
-    search_fields = ['freelanсer', 'project', 'proposed_budget', 'proposed_deadline',]
+    search_fields = ['freelancer', 'project', 'proposed_budget', 'proposed_deadline',]
 
-class OfferListViewSet(viewsets.ModelViewSet):
+class OfferListApiView(generics.RetrieveDestroyAPIView):
     queryset = Offer.objects.all()
     serializer_class = OfferListSerializer
 

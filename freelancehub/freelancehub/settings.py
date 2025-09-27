@@ -13,7 +13,7 @@ SECRET_KEY = os.getenv('SECRET_KEY',)
 
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 
 
 # Application definition
@@ -27,10 +27,17 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'freelance',
+    'phonenumber_field',
+    'django_filters',
+    'drf_yasg',
+    'allauth',
+    'allauth.account',
+    'allauth.socialaccount',
+    'allauth.socialaccount.providers.github',
+    'allauth.socialaccount.providers.google',
     'rest_framework_simplejwt',
     'rest_framework_simplejwt.token_blacklist',
-    'freelance',
-    "phonenumber_field",
 ]
 
 MIDDLEWARE = [
@@ -42,6 +49,8 @@ MIDDLEWARE = [
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
     'django.middleware.locale.LocaleMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
+
 ]
 
 ROOT_URLCONF = 'freelancehub.urls'

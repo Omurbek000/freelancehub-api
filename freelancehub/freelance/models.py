@@ -22,7 +22,7 @@ class UserProfile(AbstractUser):
     role = models.CharField(max_length=20, choices=ROLE_CHOICES)
     bio = models.TextField(blank=True, null=True)
     avatar = models.ImageField(upload_to="avatars/", blank=True, null=True)
-    skills = models.ManyToManyField(Skill, blank=True, null=True)
+    skills = models.ManyToManyField(Skill)
 
     def __str__(self):
         return f"{ self.first_name } { self.last_name } {self.role}"
@@ -60,7 +60,7 @@ class Project(models.Model):
     deadline = models.DateField()
     status = models.CharField(max_length=20, choices=STATUS_CHOICES, default="open")
     category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="projects_category")
-    skills = models.ManyToManyField(Skill, blank=True, null=True)
+    skills = models.ManyToManyField(Skill)
     client = models.ForeignKey(
         UserProfile, on_delete=models.CASCADE, related_name="projects_client"
     )
