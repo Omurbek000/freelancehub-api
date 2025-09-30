@@ -9,3 +9,5 @@ pagination.py(жазылды)
 permissions.py(жазылды)
 translation.py(жазылды)
 urls.py(жазылды)
+
+бары бутту
