@@ -1,0 +1,14 @@
+установил зависимости requirements.txt
+setings.py(жаздым ключ бекиттим)
+models.py(жаздым)
+serializers(жаздым)
+views.py(жазып баштадым)
+admin.py(жазылды)
+filter.py(жазылды)
+pagination.py(жазылды)
+permissions.py(жазылды)
+translation.py(жазылды)
+urls.py(жазылды)
+
+бары бутту
+загружаю заного 
