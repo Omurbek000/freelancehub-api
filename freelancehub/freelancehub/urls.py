@@ -1,20 +1,14 @@
 """
-URL configuration for freelancehub project.
+Корневые URL-маршруты проекта FreelanceHub.
 
-The `urlpatterns` list routes URLs to views. For more information please see:
-    https://docs.djangoproject.com/en/5.2/topics/http/urls/
-Examples:
-Function views
-    1. Add an import:  from my_app import views
-    2. Add a URL to urlpatterns:  path('', views.home, name='home')
-Class-based views
-    1. Add an import:  from other_app.views import Home
-    2. Add a URL to urlpatterns:  path('', Home.as_view(), name='home')
-Including another URLconf
-    1. Import the include() function: from django.urls import include, path
-    2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
+Маршруты:
+- /admin/ — админ-панель Django
+- / — все URL приложения freelance (аутентификация, CRUD)
+- /docs/ — Swagger UI (автогенерированная документация API)
+- /accounts/ — allauth (социальная аутентификация: GitHub, Google)
+- /media/ — загруженные файлы (аватары, изображения)
 """
-from django.conf.urls.i18n import i18n_patterns
+
 from django.contrib import admin
 from django.urls import path, include
 from django.conf import settings
@@ -22,19 +16,19 @@ from django.conf.urls.static import static
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-from django.conf import settings
 
+# Настройка Swagger/OpenAPI документации
 schema_view = get_schema_view(
     openapi.Info(
-        title="fl.ru",
+        title="FreelanceHub API",
         default_version='v1',),
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
 
-urlpatterns = i18n_patterns(
-    path('admin/', admin.site.urls),
-    path('', include('freelance.urls')),
-    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('accounts/', include('allauth.urls')),
-) + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+urlpatterns = [
+    path('admin/', admin.site.urls),                                           # Админ-панель
+    path('', include('freelance.urls')),                                       # API endpoints
+    path('docs/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),  # Swagger UI
+    path('accounts/', include('allauth.urls')),                                # Allauth (social auth)
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)             # Медиа-файлы
