@@ -1,25 +1,45 @@
+"""
+URL-маршруты приложения Freelance.
+
+Router (автоматические CRUD-маршруты):
+- /users-simple/ — пользователи (CRUD)
+- /social-links/ — социальные ссылки (CRUD)
+- /categories/ — категории (CRUD)
+- /projects/ — проекты (CRUD)
+- /offers/ — предложения (CRUD)
+- /reviews/ — отзывы (CRUD)
+
+Ручные маршруты:
+- /register/ — регистрация нового пользователя
+- /login/ — логин (получение JWT-токенов)
+- /logout/ — выход (добавление refresh-токена в чёрный список)
+- /user/ — список пользователей
+- /user/<id>/ — профиль конкретного пользователя
+"""
+
 from django.urls import path, include
 from rest_framework.routers import DefaultRouter
 from .views import *
 
+# Router автоматически создаёт CRUD-маршруты для ViewSet'ов
 router = DefaultRouter()
-router.register(r"users-simple", UserProfileSimpleViewSet, basename='users-simple') 
-router.register(r"social-links", SocialLinkViewSet, basename='social-links')
-router.register(r"categories", CategoryViewSet, basename='categories')
-router.register(r"projects", ProjectViewSet, basename='projects')
-router.register(r"offers", OfferViewSet, basename='offers')
-router.register(r"reviews", ReviewViewSet, basename='reviews')
+router.register(r"users-simple", UserProfileSimpleViewSet, basename='users-simple')  # /users-simple/
+router.register(r"social-links", SocialLinkViewSet, basename='social-links')          # /social-links/
+router.register(r"categories", CategoryViewSet, basename='categories')                # /categories/
+router.register(r"projects", ProjectViewSet, basename='projects')                     # /projects/
+router.register(r"offers", OfferViewSet, basename='offers')                           # /offers/
+router.register(r"reviews", ReviewViewSet, basename='reviews')                        # /reviews/
 
 urlpatterns = [
-    path('register/', RegisterView.as_view(), name='register'),
-    path('login/', CustomLoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-    path('user/', UserProfileListApiView.as_view(), name='user'),
-    path('user/<int:pk>/', UserProfileDetailApiView.as_view(), name='user-detail'),
-    path('category/<int:pk>/', CategoryDetailApiView.as_view(), name='category-detail'),
-    path('project/', ProjectListApiView.as_view(), name='project'),
-    path('project/<int:pk>/', ProjectDetailApiView.as_view(), name='project-detail'),
-    path('offer/', OfferListApiView.as_view(), name='offer'),
-    path('offer/<int:pk>/', OfferDetailApiView.as_view(), name='offer-detail'),
+    # Аутентификация
+    path('register/', RegisterView.as_view(), name='register'),        # POST /register/
+    path('login/', CustomLoginView.as_view(), name='login'),           # POST /login/
+    path('logout/', LogoutView.as_view(), name='logout'),              # POST /logout/
+
+    # Пользователи
+    path('user/', UserProfileListApiView.as_view(), name='user-list'),          # GET /user/
+    path('user/<int:pk>/', UserProfileDetailApiView.as_view(), name='user-detail'),  # GET/PUT/PATCH/DELETE /user/<id>/
+
+    # Все CRUD-маршруты из router
     path("", include(router.urls)),
 ]
